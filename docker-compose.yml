@@ -1,3 +1,5 @@
+version: "3.9"
+
 services:
   mysql:
     image: mysql:8.0
@@ -7,18 +9,20 @@ services:
       MYSQL_ROOT_PASSWORD: root
     volumes:
       - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   backend:
     build: ./demo
     restart: always
     depends_on:
-      - mysql
-    environment:
-      DB_URL: jdbc:mysql://mysql:3306/troubleshooters?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
-      DB_USERNAME: root
-      DB_PASSWORD: root
-      MAIL_USERNAME: mail2moht@gmail.com
-      MAIL_PASSWORD: <APP_PASSWORD>
+      mysql:
+        condition: service_healthy
+    env_file:
+      - .env
     expose:
       - "8080"
 
