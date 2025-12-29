@@ -19,8 +19,8 @@ services:
       DB_URL: jdbc:mysql://mysql:3306/troubleshooters?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
       DB_USERNAME: root
       DB_PASSWORD: root
-      MAIL_USERNAME: dummy@mail.com
-      MAIL_PASSWORD: dummy
+      MAIL_USERNAME: mail2moht@gmail.com
+      MAIL_PASSWORD: <GMAIL_APP_PASSWORD>
     ports:
       - "8080:8080"
 
