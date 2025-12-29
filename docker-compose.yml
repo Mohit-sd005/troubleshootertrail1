@@ -1,7 +1,6 @@
 services:
   mysql:
     image: mysql:8.0
-    container_name: mysql
     restart: always
     environment:
       MYSQL_DATABASE: troubleshooters
@@ -11,7 +10,6 @@ services:
 
   backend:
     build: ./demo
-    container_name: backend
     restart: always
     depends_on:
       - mysql
@@ -20,13 +18,12 @@ services:
       DB_USERNAME: root
       DB_PASSWORD: root
       MAIL_USERNAME: mail2moht@gmail.com
-      MAIL_PASSWORD: <GMAIL_APP_PASSWORD>
-    ports:
-      - "8080:8080"
+      MAIL_PASSWORD: <APP_PASSWORD>
+    expose:
+      - "8080"
 
   frontend:
     build: ./frontend
-    container_name: frontend
     restart: always
     depends_on:
       - backend
